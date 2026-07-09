@@ -1,5 +1,8 @@
 # Teste Técnico - Automação Web e API
 
+**Repositório:**  
+https://github.com/maxolisilva/Case-de-teste-API-e-WEB-no-Cypress-utilizando-Cucumber
+
 ## Descrição
 
 Este projeto foi desenvolvido como solução para o teste técnico de automação utilizando **Cypress**, **Cucumber** e **JavaScript**.
@@ -28,13 +31,13 @@ Antes de executar o projeto, é necessário possuir instalado:
 Clone o repositório:
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/maxolisilva/Case-de-teste-API-e-WEB-no-Cypress-utilizando-Cucumber.git
 ```
 
 Acesse a pasta do projeto:
 
 ```bash
-cd <NOME_DO_PROJETO>
+cd Case-de-teste-API-e-WEB-no-Cypress-utilizando-Cucumber
 ```
 
 Instale todas as dependências:
