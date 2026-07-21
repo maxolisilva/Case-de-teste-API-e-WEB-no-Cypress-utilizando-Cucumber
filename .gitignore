@@ -1,0 +1,21 @@
+# Dependências
+node_modules/
+
+# Relatórios
+reports/
+mochawesome-report/
+
+# Evidências
+cypress/videos/
+cypress/screenshots/
+
+# Logs
+*.log
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Cache
+.cache/
+node_modules
