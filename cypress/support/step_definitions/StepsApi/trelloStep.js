@@ -1,4 +1,5 @@
-import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import TrelloService from "../../services/TrelloService";
 
 When("Uma Requisição GET É Enviada Para A API Do Trello", () => {

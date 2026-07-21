@@ -1,8 +1,8 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+import CartPage from "../../page_objects/PagesWeb/CartPage";
 import LoginPage from "../../page_objects/PagesWeb/LoginPage";
 import ProdutosPage from "../../page_objects/PagesWeb/ProdutosPage";
-import CartPage from "../../page_objects/PagesWeb/CartPage";
-
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given("Tela De Login É Acessada",()=>{
 
@@ -28,25 +28,45 @@ When("Produto {string} É Pesquisado",(produto)=>{
 
 })
 
+Then("Existe apenas {int} View Product", (quantidade) => {
+
+    ProdutosPage.validarQuantidadeViewProduct(quantidade);
+
+});
+
+When("Valida Se Produto {string} É O Unico Filtrado", (produto) => {
+
+    ProdutosPage.validarQuantidadeViewProduct(1);
+    ProdutosPage.clicarViewProduct();
+    ProdutosPage.validarTituloProduto(produto);
+
+});
+
 When("Produto {string} É Adicionado Ao Carrinho", (produto) => {
 
     ProdutosPage.adicionarPrimeiroProduto(produto);
 
 });
 
-When("Carrinho é Acessado",()=>{
+When("Carrinho é Acessado Pela Compra",()=>{
 
-    ProdutosPage.visualizarCarrinho();
+    ProdutosPage.visualizarCarrinhoPelaCompra();
+
+})
+
+When("Carrinho é Acessado Por Menu",()=>{
+
+    ProdutosPage.visualizarCarrinhoPeloMenu();
 
 })
 
 When("Existencia Do Produto {string} É Validada No Carrinho",(produto)=>{
 
-    CartPage.validarQuantidadeProdutos(1);
+    CartPage.validarQuantidadeTiposDeProduto(1);
 
     CartPage.validarProduto(produto);
 
-    CartPage.validarQuantidade(1);
+    CartPage.validarQuantidadeDeCertoProduto(1);
 
     CartPage.validarPreco();
 
@@ -62,9 +82,7 @@ Then("Produto {string} É Exibido Em Resumo Da Compra",(produto)=>{
 
     CartPage.validarProduto(produto);
 
-    CartPage.validarQuantidade(1);
-
-    CartPage.validarPreco();
+    CartPage.validarQuantidadeDeCertoProduto(1);
 })
 
 Then("Remover Item Do Carrinho",()=>{

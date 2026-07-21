@@ -1,14 +1,62 @@
 class ProductsPage {
 
+elements = {
+
+    menuProdutos: () => cy.contains('Products'),
+
+    campoPesquisa: () => cy.get('#search_product'),
+
+    botaoPesquisar: () => cy.get('#submit_search'),
+
+    botaoViewProduct: () => cy.contains('View Product'),
+
+    tituloProduto: () => cy.get('.product-information h2'),
+
+    mensagemAdded: () => cy.contains('Added!'),
+
+    mensagemProdutoAdicionado: () => cy.contains('Your product has been added to cart.'),
+
+    botaoViewCart: () => cy.contains('View Cart'),
+
+    MenuCart: () => cy.contains('Cart'),
+
+    precoProdutoCard: () => cy.get('.productinfo h2'),
+
+    botaoAdicionar: () => cy.contains('Add to cart')
+
+}
+
     pesquisar(produto) {
 
-        cy.contains("Products").click();
+        this.elements.menuProdutos().click();
 
-        cy.get("#search_product")
+        this.elements.campoPesquisa()
             .clear()
             .type(produto);
 
-        cy.get("#submit_search").click();
+        this.elements.botaoPesquisar().click();
+
+    }
+
+    validarQuantidadeViewProduct(quantidade) {
+
+        this.elements.botaoViewProduct()
+            .should('have.length', quantidade);
+
+    }
+
+    clicarViewProduct() {
+
+        this.elements.botaoViewProduct()
+            .click();
+
+    }
+
+    validarTituloProduto(produto) {
+
+        this.elements.tituloProduto()
+            .should('contain.text', produto);
+
     }
 
     adicionarPrimeiroProduto(produto) {
@@ -16,16 +64,14 @@ class ProductsPage {
         cy.contains(produto)
             .parents('.product-image-wrapper')
             .within(() => {
+                
+            this.elements.precoProdutoCard()
+                .invoke('text')
+                .then((preco) => {
+                    cy.wrap(preco.trim()).as('precoProduto');
+                });
 
-                cy.get('.productinfo h2')
-                    .invoke('text')
-                    .then((preco) => {
-
-                        cy.wrap(preco.trim()).as('precoProduto');
-
-                    });
-
-                cy.contains('Add to cart').click();
+            this.elements.botaoAdicionar().click();
 
             });
 
@@ -35,18 +81,26 @@ class ProductsPage {
 
     validarProdutoAdicionado() {
 
-        cy.contains("Added!")
-            .should("be.visible");
+        this.elements.mensagemAdded()
+            .should('be.visible');
 
-        cy.contains("Your product has been added to cart.")
-            .should("be.visible");
-    }
-
-    visualizarCarrinho() {
-
-        cy.contains("View Cart").click();
+        this.elements.mensagemProdutoAdicionado()
+            .should('be.visible');
 
     }
+
+    visualizarCarrinhoPelaCompra() {
+
+        this.elements.botaoViewCart().click();
+
+    }
+
+    visualizarCarrinhoPeloMenu() {
+
+        this.elements.MenuCart().click();
+
+    }
+
 }
 
 export default new ProductsPage();

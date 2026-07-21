@@ -1,21 +1,17 @@
 @web
+@pesquisa
 
-Feature: Compra de produtos
+Feature: PesquisaProduto
 
     Background:
         Given Tela De Login É Acessada
 
-    Scenario Outline: Comprar um produto com sucesso
+    Scenario Outline: Pesquisar Um Produto E Validar
 
         When Login É Realizado Com "<email>" e "<senha>"
         Then Valida Se Nome Do Usuario É "<nomeUsuario>"
         And Produto "<produto>" É Pesquisado
-        And Produto "<produto>" É Adicionado Ao Carrinho
-        And Carrinho é Acessado
-        And Existencia Do Produto "<produto>" É Validada No Carrinho
-        And Prossegue Para Checkout
-        Then Produto "<produto>" É Exibido Em Resumo Da Compra
-        Then Remover Item Do Carrinho
+        And Valida Se Produto "<produto>" É O Unico Filtrado
 
         Examples:
 

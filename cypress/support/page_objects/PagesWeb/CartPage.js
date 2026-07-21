@@ -1,22 +1,42 @@
 class CartPage {
 
-    validarQuantidadeProdutos(quantidade) {
+    elements = {
 
-        cy.get('#cart_info_table tbody tr')
+        linhasCarrinho: () => cy.get('#cart_info_table tbody tr'),
+
+        descricaoProduto: () => cy.get('.cart_description a'),
+
+        quantidadeProduto: () => cy.get('.cart_quantity button'),
+
+        precoProduto: () => cy.get('.cart_price p'),
+
+        botaoCheckout: () => cy.contains('Proceed To Checkout'),
+
+        botaoCarrinho: () => cy.get('[href="/view_cart"]'),
+
+        botaoExcluir: () => cy.get('.cart_quantity_delete'),
+
+        carrinhoVazio: () => cy.get('#empty_cart')
+
+    }
+
+    validarQuantidadeTiposDeProduto(quantidade) {
+
+        this.elements.linhasCarrinho()
             .should('have.length', quantidade);
 
     }
 
     validarProduto(produto) {
 
-        cy.get('.cart_description a')
+        this.elements.descricaoProduto()
             .should('contain', produto);
 
     }
 
-    validarQuantidade(quantidade) {
+    validarQuantidadeDeCertoProduto(quantidade) {
 
-        cy.get('.cart_quantity button')
+        this.elements.quantidadeProduto()
             .should('contain', quantidade);
 
     }
@@ -25,7 +45,7 @@ class CartPage {
 
         cy.get('@precoProduto').then((precoEsperado) => {
 
-            cy.get('.cart_price p')
+            this.elements.precoProduto()
                 .invoke('text')
                 .then((precoCarrinho) => {
 
@@ -39,20 +59,17 @@ class CartPage {
 
     prosseguirCheckout() {
 
-        cy.contains('Proceed To Checkout')
-            .click();
+        this.elements.botaoCheckout().click();
 
     }
 
-    apagarItemCarrinho(){
+    apagarItemCarrinho() {
 
-        cy.get('[href="/view_cart"]')
-            .click();
+        this.elements.botaoCarrinho().click();
 
-        cy.get('.cart_quantity_delete')
-            .click();
+        this.elements.botaoExcluir().click();
 
-        cy.get('[id="empty_cart"]')
+        this.elements.carrinhoVazio()
             .should('exist');
 
     }

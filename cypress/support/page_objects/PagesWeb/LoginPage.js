@@ -1,39 +1,51 @@
 class LoginPage {
 
-    acessar(){
+    elements = {
 
-        cy.visit("https://www.automationexercise.com/login")
+        email: () => cy.get('[data-qa="login-email"]'),
+
+        senha: () => cy.get('[data-qa="login-password"]'),
+
+        entrar: () => cy.get('[data-qa="login-button"]'),
+
+        usuarioLogado: (nome) => cy.contains(`Logged in as ${nome}`)
 
     }
 
-    preencherEmailESenha(email, senha){
+    acessar() {
 
-        cy.get('[data-qa="login-email"]')
+        cy.visit("https://www.automationexercise.com/login");
+
+    }
+
+    preencherEmailESenha(email, senha) {
+
+        this.elements.email()
             .clear()
-            .type(email)
+            .type(email);
 
-        cy.get('[data-qa="login-password"]')
+        this.elements.senha()
             .clear()
-            .type(senha)
+            .type(senha);
 
     }
 
-    clicarEntrar(){
+    clicarEntrar() {
 
-        cy.get('[data-qa="login-button"]').click()
-
-    }
-
-    validarLogin(nomeUsuario) {
-
-        cy.contains(`Logged in as ${nomeUsuario}`)
-            .should('be.visible');
+        this.elements.entrar().click();
 
     }
 
-    realizarLogin(email,senha){
+    validarLogin(nome) {
 
-        this.preencherEmailESenha(email, senha)
+        this.elements.usuarioLogado(nome)
+            .should("be.visible");
+
+    }
+
+    realizarLogin(email, senha) {
+
+        this.preencherEmailESenha(email, senha);
 
         this.clicarEntrar();
 
@@ -41,4 +53,4 @@ class LoginPage {
 
 }
 
-export default new LoginPage()
+export default new LoginPage();

@@ -18,4 +18,3 @@ cypress/screenshots/
 
 # Cache
 .cache/
-node_modules
